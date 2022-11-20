@@ -24,7 +24,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={"NOT FOUND"} />
+          <Route path="*" element={"NOT FOUND!!"} />
         </Routes>
       </QueryClientProvider>
     </>
