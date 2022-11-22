@@ -4,13 +4,19 @@ import * as yup from "yup";
 
 const Form = () => {
   const schema = yup.object().shape({
-    fullName: yup.string().required(),
+    fullName: yup.string().required("Field fullname is required!"),
     email: yup.string().email().required(),
-    age: yup.number().positive().integer().required(),
+    age: yup
+      .number()
+      .positive()
+      .integer()
+      .min(18)
+      .required()
+      .typeError("Field age is number!"),
     password: yup.string().min(4).max(20).required(),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password"), null])
+      .oneOf([yup.ref("password"), null], "Password don't match!")
       .required(),
   });
 
@@ -21,6 +27,8 @@ const Form = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  console.log(errors);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -33,19 +41,33 @@ const Form = () => {
           placeholder="Fullname..."
           {...register("fullName")}
         />
-        <small>{errors.fullName?.message}</small>
+        <small style={{ padding: "10px 0px", color: "red" }}>
+          {errors.fullName?.message}
+        </small>
         <input type="text" placeholder="Email..." {...register("email")} />
+        <small style={{ padding: "10px 0px", color: "red" }}>
+          {errors.email?.message}
+        </small>
         <input type="text" placeholder="Age..." {...register("age")} />
+        <small style={{ padding: "10px 0px", color: "red" }}>
+          {errors.age?.message}
+        </small>
         <input
           type="password"
           placeholder="Password..."
           {...register("password")}
         />
+        <small style={{ padding: "10px 0px", color: "red" }}>
+          {errors.password?.message}
+        </small>
         <input
           type="password"
           placeholder="Confirm Password..."
           {...register("confirmPassword")}
         />
+        <small style={{ padding: "10px 0px", color: "red" }}>
+          {errors.confirmPassword?.message}
+        </small>
         <input type="submit" className="submit" />
       </form>
     </>
