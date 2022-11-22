@@ -14,7 +14,11 @@ const Form = () => {
       .required(),
   });
 
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -29,6 +33,7 @@ const Form = () => {
           placeholder="Fullname..."
           {...register("fullName")}
         />
+        <small>{errors.fullName?.message}</small>
         <input type="text" placeholder="Email..." {...register("email")} />
         <input type="text" placeholder="Age..." {...register("age")} />
         <input
