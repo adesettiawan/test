@@ -21,7 +21,7 @@ function App() {
       {/* <Toggle /> */}
       <br />
       <br />
-      <Count />
+      {/* <Count /> */}
     </div>
   );
 }
